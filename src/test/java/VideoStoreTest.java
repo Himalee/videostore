@@ -7,7 +7,8 @@ public class VideoStoreTest extends TestCase
     }
 
     protected void setUp ()  {
-        customer = new Customer ("Fred");
+        statementGenerator = new StatementGenerator();
+        customer = new Customer ("Fred", statementGenerator);
     }
 
     public void testSingleNewReleaseStatement () {
@@ -35,4 +36,5 @@ public class VideoStoreTest extends TestCase
     }
 
     private Customer customer;
+    private StatementGenerator statementGenerator;
 }
