@@ -3,15 +3,13 @@ import junit.framework.*;
 public class VideoStoreTest extends TestCase
 {
     private Customer customer;
-    private StatementGenerator statementGenerator;
 
     public VideoStoreTest (String name) {
         super (name);
     }
 
     protected void setUp ()  {
-        statementGenerator = new StatementGenerator();
-        customer = new Customer ("Fred", statementGenerator);
+        customer = new Customer ("Fred");
     }
 
     public void testSingleNewReleaseStatement () {

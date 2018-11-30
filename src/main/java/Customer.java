@@ -1,22 +1,46 @@
+import java.util.Enumeration;
 import java.util.Vector;
 
 public class Customer {
 
     private String name;
     private Vector rentals = new Vector ();
-    private StatementGenerator statementGenerator;
 
-    public Customer (String name, StatementGenerator statementGenerator) {
+    public Customer (String name) {
         this.name = name;
-        this.statementGenerator = statementGenerator;
     }
 
     public void addRental (Rental rental) {
         rentals.addElement (rental);
     }
 
-    public String statement() {
-        return statementGenerator.generate(name, rentals);
+    public String statement () {
+        double 				totalAmount 			= 0;
+        int					frequentRenterPoints 	= 0;
+        Enumeration rentals 				= this.rentals.elements ();
+        String 				result 					= "Rental Record for " + name + "\n";
+
+        while (rentals.hasMoreElements ()) {
+            Rental 		each = (Rental)rentals.nextElement ();
+
+
+            frequentRenterPoints++;
+
+            if (each.getMovie ().getPriceCode () == Movie.NEW_RELEASE
+                    && each.getDaysRented () > 1)
+                frequentRenterPoints++;
+
+            result += "\t" + each.getMovie ().getTitle () + "\t"
+                    + String.valueOf (each.getCharge()) + "\n";
+            totalAmount += each.getCharge();
+
+        }
+
+        result += "You owed " + String.valueOf (totalAmount) + "\n";
+        result += "You earned " + String.valueOf (frequentRenterPoints) + " frequent renter points\n";
+
+
+        return result;
     }
 
 }
