@@ -22,6 +22,8 @@ public class StatementGenerator {
                     break;
                 case Movie.NEW_RELEASE:
                     thisAmount += each.getDaysRented () * 3;
+                    if (each.getDaysRented() > 1)
+                        frequentRenterPoints ++;
                     break;
                 case Movie.CHILDRENS:
                     thisAmount += 1.5;
@@ -31,10 +33,6 @@ public class StatementGenerator {
             }
 
             frequentRenterPoints++;
-
-            if (each.getMovie ().getPriceCode () == Movie.NEW_RELEASE
-                    && each.getDaysRented () > 1)
-                frequentRenterPoints++;
 
             result += "\t" + each.getMovie ().getTitle () + "\t"
                     + String.valueOf (thisAmount) + "\n";
